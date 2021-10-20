@@ -1,34 +1,34 @@
 import { Coin, CoinHistory } from './coin.type';
 
-type stateType = {
+type StateType = {
   coinList: Coin[];
   coinHistoryCache: any;
 };
 
-const state = () => ({
+const state: () => StateType = () => ({
   coinList: [],
   coinHistoryCache: {}
 });
 
 const getters = {
-  getCoinById: (state: stateType) => (id: string) => {
+  getCoinById: (state: StateType) => (id: string) => {
     return state.coinList.find((coin: Coin) => coin.id === id);
   },
-  getCoinHistoryById: (state: stateType) => (id: string) => {
+  getCoinHistoryById: (state: StateType) => (id: string) => {
     return state.coinHistoryCache[id];
   }
 };
 
 const mutations = {
-  setCoinList: (state: stateType, newCoinList: Coin[]) => {
+  setCoinList: (state: StateType, newCoinList: Coin[]) => {
     state.coinList = [...newCoinList];
   },
-  setCoinHistoryCache: (state: stateType, coinHistory: CoinHistory) => {
+  setCoinHistoryCache: (state: StateType, coinHistory: CoinHistory) => {
     const stateClone = { ...state.coinHistoryCache };
     stateClone[coinHistory.id] = coinHistory.prices;
     state.coinHistoryCache = { ...stateClone };
   },
-  clearStore: (state: stateType) => {
+  clearStore: (state: StateType) => {
     state = {
       coinList: [],
       coinHistoryCache: {}
