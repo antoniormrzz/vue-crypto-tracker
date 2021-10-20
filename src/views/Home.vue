@@ -1,10 +1,9 @@
 <template>
   <div class="home">
-    <div>
-      <div>Latest Coin info</div>
-      <button @click="refreshList()">refresh</button>
+    <div class="header">
+      <div class="header-title">Latest Coin info</div>
+      <a href="#" @click="refreshList()" class="header-refresh">Refresh</a>
     </div>
-    <hr />
     <div>
       <CoinList :coinList="coinList" />
     </div>
@@ -65,4 +64,26 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang="stylus"></style>
+<style scoped lang="stylus">
+.header
+  display flex
+  justify-content space-between
+  padding 20px 20px 10px 20px
+  align-items center
+  &-title
+    font-size 30px
+  &-refresh
+    box-shadow inset 0px 1px 0px 0px #ffffff;
+    background-color transparent;
+    border-radius 5px;
+    border 1px solid #000000;
+    display inline-block;
+    cursor pointer;
+    color #5e5e5e;
+    font-family Arial;
+    font-size 16px;
+    font-weight bold;
+    padding 6px 24px;
+    text-decoration none;
+    text-shadow 0px 1px 0px #ffffff;
+</style>
