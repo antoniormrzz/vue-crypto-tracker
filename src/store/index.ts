@@ -2,7 +2,7 @@ import { createStore } from 'vuex';
 import coin from './coin/coin.store';
 
 export default createStore({
-  state: { coinList: [] },
+  state: {},
   mutations: {},
   actions: {},
   modules: { coin }

@@ -1,22 +1,31 @@
 <template>
-  <div class="hello"></div>
+  <div class="coin">
+    <router-link :to="`/coin/${coin.id}`">
+      <div class="coin__card">
+        <img :src="coin.image" :alt="`${coin.name} logo`" />
+        {{ coin.id }} {{ coin.current_price.toLocaleString() }}
+      </div>
+    </router-link>
+  </div>
 </template>
 
-<script lang="ts"></script>
+<script lang="ts">
+import { Coin } from '@/store/coin/coin.type';
+import { defineComponent, PropType } from 'vue';
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+export default defineComponent({
+  props: {
+    coin: {
+      type: Object as PropType<Coin>,
+      required: true
+    }
+  }
+});
+</script>
+
 <style scoped lang="stylus">
-h3
-  margin 40px 0 0
-
-ul
-  list-style-type none
-  padding 0
-
-li
-  display inline-block
-  margin 0 10px
-
-a
-  color #42b983
+.coin
+  &__card
+    img
+      width 30px
 </style>
