@@ -5,10 +5,10 @@ type stateType = {
   coinHistoryCache: any;
 };
 
-const state = {
+const state = () => ({
   coinList: [],
   coinHistoryCache: {}
-};
+});
 
 const getters = {
   getCoinById: (state: stateType) => (id: string) => {

@@ -1,18 +1,20 @@
 <template>
   <div class="home">
-    <div>Latest Coin info</div>
+    <div>
+      <div>Latest Coin info</div>
+      <button @click="refreshList()">refresh</button>
+    </div>
     <hr />
     <div>
-      <CoinList />
+      <CoinList :coinList="coinList" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { onMounted, watch, defineComponent, computed, ref } from "vue";
+import { onMounted, defineComponent, computed, ref, watchEffect } from "vue";
 import { useStore } from "vuex";
 import CoinList from "@/components/CoinList.vue";
-import CoinItem from "@/components/CoinItem.vue";
 
 export default defineComponent({
   components: {
@@ -22,9 +24,17 @@ export default defineComponent({
     const store = useStore();
     const error = ref("");
     const loading = ref(true);
-    const coinList = computed(() => store.state.coinList);
-    onMounted(() => {
+    const coinList = computed(() => store.state.coin.coinList);
+    watchEffect(() => console.log(coinList.value));
+
+    const refreshList = () => {
+      fetchList();
+    };
+
+    const fetchList = () => {
       error.value = "";
+      loading.value = true;
+      store.commit("clearStore");
       fetch(
         "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=10"
       )
@@ -45,8 +55,12 @@ export default defineComponent({
         .finally(() => {
           loading.value = false;
         });
+    };
+
+    onMounted(() => {
+      fetchList();
     });
-    return { error, loading, coinList };
+    return { error, loading, coinList, refreshList };
   },
 });
 </script>
