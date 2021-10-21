@@ -21,37 +21,27 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
-    const error = ref('');
     const loading = ref(true);
     const coinList = computed(() => store.state.coin.coinList);
     watchEffect(() => console.log(coinList.value));
 
     const refreshList = () => {
+      store.commit('clearStore');
       fetchList();
     };
 
     const fetchList = () => {
-      error.value = '';
       loading.value = true;
-      store.commit('clearStore');
       fetch(
         'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=10'
       )
         .then((res) => {
-          if (!res.ok) {
-            const error = new Error(res.statusText);
-            throw error;
-          }
-
           return res.json();
         })
         .then((data) => {
           store.commit('setCoinList', data);
         })
-        .catch((err) => {
-          error.value = err;
-        })
-        .finally(() => {
+        .then(() => {
           loading.value = false;
         });
     };
@@ -59,7 +49,7 @@ export default defineComponent({
     onMounted(() => {
       fetchList();
     });
-    return { error, loading, coinList, refreshList };
+    return { loading, coinList, refreshList };
   }
 });
 </script>
