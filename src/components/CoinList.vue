@@ -1,3 +1,4 @@
+<!-- This is the coin list component, responsible for listing the components -->
 <template>
   <div class="coin-list">
     <CoinItem
@@ -24,5 +25,5 @@ export default defineComponent({
 <style scoped lang="stylus">
 .coin-list
   &__item
-    margin 10px 20px
+    margin 10px 0
 </style>

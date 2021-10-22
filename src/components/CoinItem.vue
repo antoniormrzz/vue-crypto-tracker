@@ -1,7 +1,8 @@
+<!-- This component represents a coin in the home page coin list -->
 <template>
   <div class="coin">
     <router-link class="router-link" :to="`/coin/${coin.id}`">
-      <div class="coin-card">
+      <div class="coin-card card">
         <div class="coin-card__left">
           <div class="coin-card__left__decor"></div>
           <img :src="coin.image" :alt="`${coin.name} logo`" />
@@ -43,31 +44,34 @@ export default defineComponent({
 .coin
   height 60px
   &-card
-    border 1px solid black
-    border-radius 5px
     display flex
     align-items center
     height 100%
     justify-content space-between
+    position relative
+    overflow hidden
     &__left
       display flex
       align-items center
       height 100%
       &__decor
+        top 0
+        left 0
         width 5px
         height 100%
         background-color black
+        position absolute
       img
         width 30px
         margin 0 10px
       &__name
-        font-size 22px
+        font-size 1.375rem
       &__symbol
-        font-size 15px
+        font-size 1rem
     &__right
       margin-right 10px
       &__price
-        font-size 25px
+        font-size 1.563rem
         margin-bottom 3px
         text-align right
       &__cap
@@ -76,4 +80,7 @@ export default defineComponent({
 .router-link
   text-decoration none
   color black
+@media screen and (max-width: 440px)
+  .coin
+    height 90px
 </style>

@@ -1,3 +1,4 @@
+/* store module for coin data */
 import { Coin, CoinHistory } from './coin.type';
 
 type StateType = {
